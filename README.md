@@ -1,5 +1,10 @@
-# CarND-Path-Planning-Project
-Self-Driving Car Engineer Nanodegree Program
+# Path Planning Project
+This repository contains the C++ source code for Udacity Self Driving Car Nanodegree Term 3 Project 1
+
+## Project Description
+This code implements the Path Planning that creates smooth, safe trajectories for the car to follow for a Self-Driving Car. The highway track has other vehicles, all going different speeds, but approximately obeying the 50 MPH speed limit.
+
+The car transmits its location, along with its sensor fusion data, which estimates the location of all the vehicles on the same side of the road.
    
 ### Simulator.
 You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases/tag/T3_v1.2).  
