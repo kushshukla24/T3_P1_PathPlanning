@@ -2,7 +2,7 @@
 This repository contains the C++ source code for Udacity Self Driving Car Nanodegree Term 3 Project 1
 
 ## Project Description
-This code implements the Path Planning that creates smooth, safe trajectories for the car to follow for a Self-Driving Car. The highway track has other vehicles, all going different speeds, but approximately obeying the 50 MPH speed limit.
+This code implements the Path Planning that creates **smooth, safe trajectories** for the car to follow for a Self-Driving Car. The highway track has other vehicles, all going different speeds, but approximately obeying the 50 MPH speed limit.
 
 The car transmits its location, along with its sensor fusion data, which estimates the location of all the vehicles on the same side of the road.
 
@@ -10,20 +10,20 @@ The car transmits its location, along with its sensor fusion data, which estimat
 Below are the high-level implementation details to achieve the objective of the required Path Planner:
 
 ### Smooth and Safe Trajectory. 
-Metric: The Self-Driving Car should 
+**Metric**: The Self-Driving Car should 
 - not exceed a maximum allowed speed of 50 m/sec^2, 
-- total acceleration of 10 m/s^2, 
-- jerk of 10 m/s^3, and,
-- not have any collisions
-- stay in lanes, except when changing lanes
-- able to change lanes
+- not exceed total acceleration of 10 m/s^2, 
+- not exceed jerk of 10 m/s^3,
+- not have any collisions,
+- stay in lanes, except when changing lanes, and,
+- able to change lanes.
 
 To attain these goals of limits in terms of speed, acceleration and jerk, the initial speed of the car is set to 0. The car is then gradually accelerated (5 m/sec^2) in case its speed is less than the maximum allowed speed, and gradually de-accelerated (-5 m/sec^2) in case the car senses another vehicle close by in its lane. The gradual acceleration and de-acceleration help to place the acceleration and jerk to be in permissible limits.\
 Acceleration is stopped once the car reaches the maximum permissible speed on the highway, ensuring the speed of car is always below the max speed limit.\
-\
-De-acceleration on sensing other vehicles in the same lane is the first measure taken to avoid collisions. Also, while lane changing, the vehicles in the target lanes are checked for proximity and thereby lane changing decision is made, only if its safe.\
-\
-To maintain the lane while driving we relied on the Frenet co-ordinates (which contains longitudinal [s], and lateral [d] co-ordinates). This gave us abstraction to stay in either lane 0,1,2 and code accordingly, irrespective of the curves and turns of the road. We generated 3 way-points ahead at longitudinal distance 30, 60 and 90 m, and fitted a spline for modeling a smooth trajectory along the lane. As per the problem statement, the lane width is 4 m, so to keep the car at the center of the lane we used\
+
+De-acceleration on sensing other vehicles in the same lane is the first measure taken to avoid collisions. Also, while lane changing, the vehicles in the target lanes are checked for proximity and thereby lane changing decision is made, only if its safe.
+
+To maintain the lane while driving we relied on the **Frenet co-ordinates** (which contains longitudinal [s], and lateral [d] co-ordinates). This gave us abstraction to stay in either lane 0,1,2 and code accordingly, irrespective of the curves and turns of the road. We generated 3 way-points ahead at longitudinal distance 30, 60 and 90 m, and fitted a spline for modeling a smooth trajectory along the lane. As per the problem statement, the lane width is 4 m, so to keep the car at the center of the lane we used:
 ```
 lane_location = 2 + 4 * lane_number
 
@@ -31,7 +31,10 @@ where lane_number can be 0,1,2
 lane_location is distance from the center line
 ```
 
-We implemented a Finite State Machine (FSM) to built the ability to safely change lanes. The sensor fusion data which collects the information regarding the nearby other vehicles acts as basic input to the FSM to decide and act on the lane change maneuver. The FSM is a 3 state model, where first we check if the lane change is required, if yes, we check whether to make lane shift on left or right, and then finally make a lane change by manipulating the lane_number.\
+We implemented a **Finite State Machine (FSM)** to built the ability to safely change lanes. The sensor fusion data which collects the information regarding the nearby other vehicles acts as basic input to the FSM to decide and act on the lane change maneuver. The FSM is a 3 state model, where first we check if the lane change is required, if yes, we check whether to make lane shift on left or right, and then finally make a lane change by manipulating the lane_number.
+
+Implementing the above, we were able to generate safe and smooth trajectory for the car to drive on the path in the simulator.
+![Screenshot](Smooth_Driving_Path_Planning.png)
 
 ### Simulator.
 You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases/tag/T3_v1.2).  
